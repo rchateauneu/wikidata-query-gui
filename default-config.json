@@ -1,7 +1,7 @@
 {
   "api": {
     "sparql": {
-      "uri": "https://query.wikidata.org/sparql"
+      "uri": "http://localhost:8180/present/query"
     },
     "wikibase": {
       "uri": "https://www.wikidata.org/w/api.php"

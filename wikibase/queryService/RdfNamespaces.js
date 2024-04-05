@@ -47,6 +47,9 @@ wikibase.queryService.RdfNamespaces = {};
 			bds: 'http://www.bigdata.com/rdf/search#',
 			gas: 'http://www.bigdata.com/rdf/gas#',
 			hint: 'http://www.bigdata.com/queryHints#'
+		},
+		Survol: {
+			cimv2: 'http://www.primhillcomputers.com/ontology/ROOT/CIMV2#'
 		}
 	};
 
@@ -82,7 +85,8 @@ wikibase.queryService.RdfNamespaces = {};
 		ps: 'PREFIX ps: <http://www.wikidata.org/prop/statement/>',
 		pq: 'PREFIX pq: <http://www.wikidata.org/prop/qualifier/>',
 		rdfs: 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>',
-		bd: 'PREFIX bd: <http://www.bigdata.com/rdf#>'
+		bd: 'PREFIX bd: <http://www.bigdata.com/rdf#>',
+		cimv2: 'PREFIX cimv2: <http://www.primhillcomputers.com/ontology/ROOT/CIMV2#>'
 	};
 
 	RdfNamespaces.addPrefixes = function( prefixes ) {

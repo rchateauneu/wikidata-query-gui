@@ -266,6 +266,14 @@ wikibase.queryService.ui.resultBrowser.helper.FormatterHelper = ( function( $, m
 	 * @return {boolean}
 	 */
 	SELF.prototype.isEntityUri = function( uri ) {
+		/*
+		TODO: Adapt this to Survol uris.
+		Il faut reconsiderer nos uris car le gui s'attend a des vrais url.
+		Comment met-on les labels et les images ?
+		*/
+		if (typeof uri === 'string'
+		    && /^http:\/\/www.primhillcomputers.com\/ontology/.test( uri ) )
+            return true;
 		return typeof uri === 'string'
 			&& /\/entity\/(Q|P|L|M)[0-9]+$/.test( uri );
 	};

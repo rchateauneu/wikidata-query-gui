@@ -53,7 +53,8 @@
     "select2": "^4.0.8",
     "underscore": "^1.13.1",
     "vis": "^4.21.0",
-    "wellknown": "^0.5.0"
+    "wellknown": "^0.5.0",
+    "wikidata-query-gui": "^0.2.0"
   },
   "devDependencies": {
     "@wdio/cli": "^7.16.13",

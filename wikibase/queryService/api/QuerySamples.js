@@ -37,7 +37,7 @@ wikibase.queryService.api.QuerySamples = ( function ( $ ) {
 	/**
 	 * @return {jQuery.Promise} Object taking list of example queries { title:, query: }
 	 */
-	SELF.prototype.getExamples = function () {
+	SELF.prototype.getExamplesOLD = function () {
 		var self = this;
 
 		return self._parsePage(
@@ -48,6 +48,52 @@ wikibase.queryService.api.QuerySamples = ( function ( $ ) {
 		} ).then( function ( response ) {
 			return self._parseHTML( response.parse.text );
 		} );
+	};
+
+	function queries_to_dict(pageUrl, queries) {
+		console.log("queries_to_dict queries=" + JSON.stringify(queries));
+
+		var examples = queries.map( item => {
+			var the_tags = item.query.match( /\b[QP]\d+\b/g );
+
+			if ( !the_tags ) {
+				the_tags = [];
+			}
+			return {
+				title:    item.title,
+				query:    item.query,
+				href:     pageUrl + '#' + encodeURIComponent( item.title.replace( / /g, '_' ) ).replace( /%/g, '.' ),
+				tags:     the_tags,
+				category: item.category
+			};
+		} );
+		// group by category
+		var groupedExamples = _.flatten( _.toArray( _.groupBy( examples, 'category' ) ) );
+		return groupedExamples;
+	};
+	
+	SELF.prototype.getExamples = function () {
+		var self = this;
+
+		var url = "http://localhost:8180/present/survol_query_samples.js";
+
+		var get_query_response = function(response, status) {
+			console.log("get_query_response response=" + response);
+			console.log("get_query_response status=" + status);
+			console.log("get_query_response query_samples=" + JSON.stringify(query_samples));
+		};
+
+		console.log("url=" + url);
+		var retGetScript = $.getScript( url, get_query_response ).then(function(xyz) {
+			console.log("then query_samples=" + JSON.stringify(window.query_samples));
+			// self._pageUrl = "https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/queries/examples";
+			var uriExecution = "http://localhost:8180/present/query?query=";
+			var to_dict = queries_to_dict(self._pageUrl, window.query_samples);
+			console.log("then to_dict=" + JSON. stringify(to_dict));
+			return to_dict;
+		});
+		console.log("getExamples retGetScript=" + JSON.stringify(retGetScript));
+		return retGetScript;
 	};
 
 	/**
